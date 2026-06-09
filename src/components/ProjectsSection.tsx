@@ -41,9 +41,9 @@ const projects = [
 export function ProjectsSection() {
   return (
     <section className="flex flex-col gap-8" id="projects">
-      <div className="text-secondary-fixed-dim font-bold">vedant@portfolio: ~/projects</div>
+      <div className="font-bold mt-2"><span className="text-secondary-container">vedant</span><span className="text-outline">@</span><span className="text-link-blue">parmane</span><span className="text-secondary-fixed-dim">: ~/projects</span></div>
       <div className="pl-4">
-        <span className="text-primary-container">vedant@portfolio :~/projects$</span>{' '}
+        <span><span className="text-secondary-container">vedant</span><span className="text-outline">@</span><span className="text-primary-container">parmane :~/projects$</span></span>{' '}
         <span className="text-pure-white">ls -la</span>
         <p className="mt-2 text-outline">total 4 featured projects</p>
       </div>

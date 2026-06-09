@@ -1,9 +1,9 @@
 export function ExperienceSection() {
   return (
     <section className="flex flex-col gap-6" id="experience">
-      <div className="text-secondary-fixed-dim font-bold">vedant@portfolio: ~/experience</div>
+      <div className="font-bold mt-2"><span className="text-secondary-container">vedant</span><span className="text-outline">@</span><span className="text-link-blue">parmane</span><span className="text-secondary-fixed-dim">: ~/experience</span></div>
       <div className="pl-4">
-        <span className="text-primary-container">vedant@portfolio :~/experience$</span>{' '}
+        <span><span className="text-secondary-container">vedant</span><span className="text-outline">@</span><span className="text-primary-container">parmane :~/experience$</span></span>{' '}
         <span className="text-pure-white">cat ./experience.txt</span>
         <div className="mt-4 flex flex-col gap-6 pl-4 border-l border-outline-variant">
           <div>

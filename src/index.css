@@ -2,7 +2,7 @@
 
 @theme {
   --color-tertiary-fixed: #ffdcbd;
-  --color-surface-dim: #000000;
+  --color-surface-dim: #090909;
   --color-pure-white: #FFFFFF;
   --color-on-tertiary-fixed: #2c1701;
   --color-primary-fixed: #72ff70;
@@ -20,7 +20,7 @@
   --color-surface-container-lowest: #071106;
   --color-on-secondary-fixed-variant: #614000;
   --color-tertiary-container: #ffd5ae;
-  --color-background: #000000;
+  --color-background: #090909;
   --color-inverse-primary: #006e16;
   --color-inverse-on-surface: #283326;
   --color-on-secondary-container: #694600;
@@ -32,7 +32,7 @@
   --color-on-surface-variant: #b9ccb2;
   --color-surface-container: #182216;
   --color-on-background: #dae6d2;
-  --color-surface: #000000;
+  --color-surface: #090909;
   --color-surface-container-highest: #2d382a;
   --color-on-primary-fixed: #002203;
   --color-secondary-fixed-dim: #ffba43;
@@ -90,6 +90,61 @@
 html::-webkit-scrollbar { display: none; }
 html { scrollbar-width: none; -ms-overflow-style: none; }
 
+.terminal-window {
+  border: 1px solid #00ff41;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #090909;
+}
+
+.terminal-titlebar {
+  background: #111111;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #00ff41;
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.terminal-dot-red {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff5f56;
+}
+
+.terminal-dot-yellow {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ffbd2e;
+}
+
+.terminal-dot-green {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #27c93f;
+}
+
+.terminal-title-text {
+  color: #00ff41;
+  font-size: 12px;
+  font-family: "JetBrains Mono", monospace;
+  flex: 1;
+  text-align: center;
+}
+
+.terminal-body {
+  padding: 20px;
+}
+
 .ascii-art::-webkit-scrollbar { display: block; }
 .ascii-art { scrollbar-width: auto; -ms-overflow-style: auto; }
 
@@ -97,7 +152,7 @@ html { scrollbar-width: none; -ms-overflow-style: none; }
   animation: blink 1s step-end infinite;
 }
 @keyframes blink {
-  50% { opacity: 0; }
+  40% { opacity: 0; }
 }
 .ascii-art {
   white-space: pre;
@@ -108,5 +163,10 @@ html { scrollbar-width: none; -ms-overflow-style: none; }
   border: 2px solid #00ff41;
 }
 .text-glow {
-  text-shadow: 0 0 5px #00ff41;
+  animation: glow-flicker 4s ease-in-out infinite;
+}
+
+@keyframes glow-flicker {
+  0%, 100% { text-shadow: 0 0 2px #00ff41, 0 0 6px #00ff41; }
+  25% { text-shadow: 0 0 1px #00ff41, 0 0 3px #00ff41; }
 }

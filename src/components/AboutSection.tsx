@@ -1,10 +1,10 @@
 export function AboutSection() {
   return (
-    <section className="flex flex-col gap-6" id="about">
-      <div className="text-secondary-fixed-dim font-bold">vedant@portfolio: ~/about</div>
+    <section className="flex flex-col gap-6 mt-4" id="about">
+      <div className="font-bold mt-2"><span className="text-secondary-container">vedant</span><span className="text-outline">@</span><span className="text-link-blue">parmane</span><span className="text-secondary-fixed-dim">: ~/about</span></div>
       <div className="flex flex-col gap-4 pl-4">
         <div>
-          <span className="text-primary-container">vedant@portfolio :~/about$</span>{' '}
+          <span><span className="text-secondary-container">vedant</span><span className="text-outline">@</span><span className="text-primary-container">parmane :~/about$</span></span>{' '}
           <span className="text-pure-white">whoami</span>
           <p className="mt-2 text-primary-container leading-relaxed">
             Vedant Parmane<br />
@@ -14,7 +14,7 @@ export function AboutSection() {
           </p>
         </div>
         <div className="mt-4">
-          <span className="text-primary-container">vedant@portfolio :~/about$</span>{' '}
+          <span><span className="text-secondary-container">vedant</span><span className="text-outline">@</span><span className="text-primary-container">parmane :~/about$</span></span>{' '}
           <span className="text-pure-white">cat ./skills.txt</span>
           <div className="mt-2 text-primary-container leading-relaxed">
             <p className="text-outline font-bold mt-2">Languages</p>
@@ -50,7 +50,7 @@ export function AboutSection() {
           </div>
         </div>
         <div className="mt-4">
-          <span className="text-primary-container">vedant@portfolio :~/about$</span>{' '}
+          <span><span className="text-secondary-container">vedant</span><span className="text-outline">@</span><span className="text-primary-container">parmane :~/about$</span></span>{' '}
           <span className="text-pure-white">cat ./background.txt</span>
           <p className="mt-2 text-primary-container leading-relaxed">
             Building systems that combine machine learning, backend services, and real-world problem solving.<br />
