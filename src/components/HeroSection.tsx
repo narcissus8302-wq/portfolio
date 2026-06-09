@@ -4,7 +4,7 @@ export function HeroSection() {
   return (
     <section className="flex flex-col gap-8 py-8 justify-center" id="hero">
       <div className="flex flex-col xl:flex-row gap-8 items-center xl:items-start w-full justify-center">
-        <div className="w-56 h-56 flex-shrink-0 glow-border p-1 bg-surface-container">
+        <div className="w-48 h-48 flex-shrink-0 glow-border p-0.5 bg-surface-container">
           <img
             alt="Vedant Parmane"
             className="w-full h-full object-cover"
