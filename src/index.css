@@ -2,7 +2,7 @@
 
 @theme {
   --color-tertiary-fixed: #ffdcbd;
-  --color-surface-dim: #0c160a;
+  --color-surface-dim: #000000;
   --color-pure-white: #FFFFFF;
   --color-on-tertiary-fixed: #2c1701;
   --color-primary-fixed: #72ff70;
@@ -20,7 +20,7 @@
   --color-surface-container-lowest: #071106;
   --color-on-secondary-fixed-variant: #614000;
   --color-tertiary-container: #ffd5ae;
-  --color-background: #0c160a;
+  --color-background: #000000;
   --color-inverse-primary: #006e16;
   --color-inverse-on-surface: #283326;
   --color-on-secondary-container: #694600;
@@ -32,7 +32,7 @@
   --color-on-surface-variant: #b9ccb2;
   --color-surface-container: #182216;
   --color-on-background: #dae6d2;
-  --color-surface: #0c160a;
+  --color-surface: #000000;
   --color-surface-container-highest: #2d382a;
   --color-on-primary-fixed: #002203;
   --color-secondary-fixed-dim: #ffba43;
