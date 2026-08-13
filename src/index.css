@@ -65,9 +65,12 @@
   --font-headline-lg-mobile: "JetBrains Mono", monospace;
   --font-hero-ascii: "JetBrains Mono", monospace;
 
-  --text-body-md: 16px;
-  --text-body-md--line-height: 24px;
+  --text-body-md: 17px;
+  --text-body-md--line-height: 27px;
   --text-body-md--font-weight: 400;
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 28px;
+  --text-body-lg--font-weight: 400;
   --text-label-code: 12px;
   --text-label-code--line-height: 16px;
   --text-label-code--letter-spacing: 0.05em;
@@ -142,7 +145,7 @@ html { scrollbar-width: none; -ms-overflow-style: none; }
 }
 
 .terminal-body {
-  padding: 20px;
+  padding: 28px;
 }
 
 .ascii-art::-webkit-scrollbar { display: block; }
