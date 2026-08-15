@@ -173,3 +173,19 @@ html { scrollbar-width: none; -ms-overflow-style: none; }
   0%, 100% { text-shadow: 0 0 2px #00ff41, 0 0 6px #00ff41; }
   25% { text-shadow: 0 0 1px #00ff41, 0 0 3px #00ff41; }
 }
+
+.modal-enter {
+  animation: modal-enter 0.15s ease-out;
+}
+@keyframes modal-enter {
+  from { opacity: 0; transform: scale(0.97) translateY(4px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.terminal-modal-body {
+  scrollbar-width: thin;
+  scrollbar-color: #00ff41 #0a0a0a;
+}
+.terminal-modal-body::-webkit-scrollbar { width: 8px; }
+.terminal-modal-body::-webkit-scrollbar-track { background: #0a0a0a; }
+.terminal-modal-body::-webkit-scrollbar-thumb { background: #00ff41; border-radius: 4px; }
