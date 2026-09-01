@@ -22,7 +22,7 @@ export default function CanvasBackground({ config }: CanvasBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Array<{
     update: (speed: number) => void;
-    draw: (ctx: CanvasRenderingContext2D, w: number, h: number, theme: string, r: number, f: number) => void;
+    calculateRenderData: (w: number, h: number, r: number, f: number) => { screenX: number, screenY: number, opacity: number, fontSize: number, char: string } | null;
   }>>([]);
   const mouseRef = useRef({ x: -1000, y: -1000 });
   const animationRef = useRef<number | null>(null);
@@ -136,14 +136,15 @@ export default function CanvasBackground({ config }: CanvasBackgroundProps) {
         this.offsetY += this.vy;
       }
 
-      draw(ctx: CanvasRenderingContext2D, width: number, height: number, themeRgb: string, repelRadius: number, repelForce: number) {
-        if (this.z <= 0) return;
+      // Separate update physics from draw to allow batching
+      calculateRenderData(width: number, height: number, repelRadius: number, repelForce: number) {
+        if (this.z <= 0) return null;
 
         const scale = fov / (fov + this.z);
         const screenX = (this.x * scale) + (width / 2) + this.offsetX;
         const screenY = (this.y * scale) + (height / 2) + this.offsetY;
 
-        if (screenX < -50 || screenX > width + 50 || screenY < -50 || screenY > height + 50) return;
+        if (screenX < -50 || screenX > width + 50 || screenY < -50 || screenY > height + 50) return null;
 
         const mouse = mouseRef.current;
         const dx = screenX - mouse.x;
@@ -158,13 +159,9 @@ export default function CanvasBackground({ config }: CanvasBackgroundProps) {
         }
 
         const opacity = Math.max(0.1, 1 - (this.z / maxZ));
-        const fontSize = Math.max(8, 30 * scale);
+        const fontSize = Math.floor(Math.max(8, 30 * scale));
 
-        ctx.fillStyle = `rgba(${themeRgb}, ${opacity})`;
-        ctx.font = `${fontSize}px 'JetBrains Mono', 'Fira Code', monospace`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(this.char, screenX, screenY);
+        return { screenX, screenY, opacity, fontSize, char: this.char };
       }
     }
 
@@ -184,10 +181,43 @@ export default function CanvasBackground({ config }: CanvasBackgroundProps) {
 
       const themeRgb = themeColorRef.current;
 
+      // We batch rendering by fontSize to minimize ctx.font changes
+      // Font changes are extremely expensive in 2D canvas API
+      const fontBatches: Record<number, Array<{x: number, y: number, opacity: number, char: string}>> = {};
+
       for (const p of particlesRef.current) {
         p.update(config.driftSpeed);
-        p.draw(ctx, width, height, themeRgb, config.repelRadius, config.repelForce);
+        const renderData = p.calculateRenderData(width, height, config.repelRadius, config.repelForce);
+
+        if (renderData) {
+          if (!fontBatches[renderData.fontSize]) fontBatches[renderData.fontSize] = [];
+          fontBatches[renderData.fontSize].push({
+            x: renderData.screenX,
+            y: renderData.screenY,
+            opacity: renderData.opacity,
+            char: renderData.char
+          });
+        }
       }
+
+      ctx.fillStyle = `rgb(${themeRgb})`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      // Render batches
+      for (const sizeStr in fontBatches) {
+        const size = parseInt(sizeStr);
+        ctx.font = `${size}px 'JetBrains Mono', 'Fira Code', monospace`;
+
+        const batch = fontBatches[sizeStr];
+        for (const item of batch) {
+          ctx.globalAlpha = item.opacity;
+          ctx.fillText(item.char, item.x, item.y);
+        }
+      }
+
+      // Reset alpha
+      ctx.globalAlpha = 1.0;
 
       animationRef.current = requestAnimationFrame(animate);
     };
