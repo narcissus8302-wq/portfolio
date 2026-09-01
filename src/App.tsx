@@ -19,7 +19,6 @@ function App() {
     starDensity: 700,
     driftSpeed: 1.0,
     theme: 'fire', // Using fire theme as default
-    crtScanlines: true,
     photonGlow: false,
   });
 
@@ -28,7 +27,6 @@ function App() {
   return (
     <>
       <CanvasBackground config={config} />
-      {config.crtScanlines && <div id="crt-overlay"></div>}
 
       <div className="text-primary-container font-body-md min-h-screen flex flex-col relative z-10 pointer-events-none">
         <div className="pointer-events-auto">

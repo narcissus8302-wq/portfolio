@@ -10,7 +10,6 @@ export interface Config {
   starDensity: number;
   driftSpeed: number;
   theme: string;
-  crtScanlines: boolean;
   photonGlow: boolean;
 }
 
@@ -31,17 +30,14 @@ export default function CanvasBackground({ config }: CanvasBackgroundProps) {
   useEffect(() => {
     const root = document.documentElement;
     // Apply classes to root element for correct Tailwind v4 variable propagation
-    root.classList.remove('theme-fire', 'theme-matrix', 'theme-cyberpunk', 'theme-terminal', 'crt-enabled', 'glow-enabled');
+    root.classList.remove('theme-fire', 'theme-matrix', 'theme-cyberpunk', 'theme-terminal', 'glow-enabled');
 
     if (config.theme !== 'fire') {
       root.classList.add(`theme-${config.theme}`);
     }
 
     const body = document.body;
-    body.className = ''; // Keep for legacy specific crt/glow overrides if needed
-    if (config.crtScanlines) {
-      body.classList.add('crt-enabled');
-    }
+    body.className = ''; // Keep for legacy specific glow overrides if needed
     if (config.photonGlow) {
       body.classList.add('glow-enabled');
     }
@@ -55,7 +51,7 @@ export default function CanvasBackground({ config }: CanvasBackgroundProps) {
     // Give browser a tick to apply classes before reading computed style
     setTimeout(computeThemeColor, 0);
 
-  }, [config.theme, config.crtScanlines, config.photonGlow]);
+  }, [config.theme, config.photonGlow]);
 
   function hexToRgb(hex: string) {
     hex = hex.replace(/^#/, '');

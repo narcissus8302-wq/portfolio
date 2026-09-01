@@ -4,7 +4,7 @@ interface NavbarProps {
 
 export function Navbar({ toggleControls }: NavbarProps) {
   return (
-    <nav className="sticky top-0 border-b border-primary-container bg-background w-full z-50">
+    <nav className="sticky top-0 border-b border-primary-container bg-[var(--bg-color)] backdrop-blur-sm w-full z-50">
       <div className="flex justify-between items-center w-full px-8 py-5 max-w-[1200px] mx-auto">
         <a href="#" className="font-label-code text-[18px] font-bold text-primary-container hover:text-primary-fixed transition-colors">
           vedant@portfolio:~$

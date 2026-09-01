@@ -82,17 +82,9 @@ export default function ControlsPanel({ config, setConfig, isOpen, setIsOpen }: 
           </select>
         </div>
 
-        <div className="flex justify-between items-center">
-          <label className="text-sm text-[var(--text-color-muted)]">CRT Scanlines:</label>
-          <input
-            type="checkbox" checked={config.crtScanlines}
-            onChange={(e) => handleChange('crtScanlines', e.target.checked)}
-          />
-        </div>
-
         <button
           onClick={() => setConfig({
-            repelRadius: 200, repelForce: 1.5, starDensity: 700, driftSpeed: 1.0, theme: 'fire', crtScanlines: true, photonGlow: false
+            repelRadius: 200, repelForce: 1.5, starDensity: 700, driftSpeed: 1.0, theme: 'fire', photonGlow: false
           })}
           className="w-full bg-transparent text-[var(--text-color-muted)] border border-[var(--border-color-dim)] p-3 mt-4 hover:text-[var(--text-color)] hover:border-[var(--border-color)] transition-colors cursor-pointer font-label-code"
         >
