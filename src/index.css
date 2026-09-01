@@ -2,13 +2,13 @@
 
 @theme {
   --color-tertiary-fixed: #ffdcbd;
-  --color-surface-dim: #090909;
+  --color-surface-dim: var(--bg-color, #090909);
   --color-pure-white: #FFFFFF;
   --color-on-tertiary-fixed: #2c1701;
   --color-primary-fixed: #72ff70;
   --color-secondary: #ffd393;
   --color-on-primary-fixed-variant: #00530e;
-  --color-primary-container: #00ff41;
+  --color-primary-container: var(--text-color, #00ff41);
   --color-on-error-container: #ffdad6;
   --color-tertiary: #fff8f4;
   --color-surface-variant: #2d382a;
@@ -20,7 +20,7 @@
   --color-surface-container-lowest: #071106;
   --color-on-secondary-fixed-variant: #614000;
   --color-tertiary-container: #ffd5ae;
-  --color-background: #090909;
+  --color-background: var(--bg-color, #090909);
   --color-inverse-primary: #006e16;
   --color-inverse-on-surface: #283326;
   --color-on-secondary-container: #694600;
@@ -29,27 +29,27 @@
   --color-surface-tint: #00e639;
   --color-on-tertiary-fixed-variant: #5d4124;
   --color-on-error: #690005;
-  --color-on-surface-variant: #b9ccb2;
+  --color-on-surface-variant: var(--text-color-muted, #b9ccb2);
   --color-surface-container: #182216;
-  --color-on-background: #dae6d2;
-  --color-surface: #090909;
+  --color-on-background: var(--text-color, #dae6d2);
+  --color-surface: var(--bg-color, #090909);
   --color-surface-container-highest: #2d382a;
   --color-on-primary-fixed: #002203;
   --color-secondary-fixed-dim: #ffba43;
   --color-pure-black: #000000;
-  --color-on-surface: #dae6d2;
+  --color-on-surface: var(--text-color, #dae6d2);
   --color-secondary-fixed: #ffddaf;
-  --color-inverse-surface: #dae6d2;
+  --color-inverse-surface: var(--text-color, #dae6d2);
   --color-on-secondary: #432c00;
-  --color-outline: #84967e;
+  --color-outline: var(--border-color, #84967e);
   --color-tertiary-fixed-dim: #e7bf99;
-  --color-outline-variant: #3b4b37;
+  --color-outline-variant: var(--border-color-dim, #3b4b37);
   --color-surface-container-low: #141e12;
   --color-on-tertiary: #442b10;
   --color-primary-fixed-dim: #00e639;
-  --color-on-primary-container: #007117;
-  --color-primary: #ebffe2;
-  --color-link-blue: #00A3FF;
+  --color-on-primary-container: var(--text-color, #007117);
+  --color-primary: var(--text-color, #ebffe2);
+  --color-link-blue: var(--text-color, #00A3FF);
   --color-on-secondary-fixed: #281800;
   --color-on-primary: #003907;
 
@@ -209,21 +209,21 @@ html, body {
   --panel-bg: rgba(9, 9, 9, 0.85);
 }
 
-body.theme-matrix {
+:root.theme-matrix {
   --text-color: #00ff00;
   --text-color-muted: #008800;
   --border-color: #00ff00;
   --border-color-dim: rgba(0, 255, 0, 0.3);
 }
 
-body.theme-cyberpunk {
+:root.theme-cyberpunk {
   --text-color: #0ff;
   --text-color-muted: #088;
   --border-color: #f0f;
   --border-color-dim: rgba(255, 0, 255, 0.3);
 }
 
-body.theme-terminal {
+:root.theme-terminal {
   --text-color: #00ff41;
   --text-color-muted: #008822;
   --border-color: #00ff41;

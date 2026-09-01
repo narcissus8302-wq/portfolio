@@ -29,21 +29,26 @@ export default function CanvasBackground({ config }: CanvasBackgroundProps) {
   const themeColorRef = useRef<string>('252, 163, 17'); // Default RGB
 
   useEffect(() => {
-    // Apply body classes for CSS based effects
-    document.body.className = '';
+    const root = document.documentElement;
+    // Apply classes to root element for correct Tailwind v4 variable propagation
+    root.classList.remove('theme-fire', 'theme-matrix', 'theme-cyberpunk', 'theme-terminal', 'crt-enabled', 'glow-enabled');
+
     if (config.theme !== 'fire') {
-      document.body.classList.add(`theme-${config.theme}`);
+      root.classList.add(`theme-${config.theme}`);
     }
+
+    const body = document.body;
+    body.className = ''; // Keep for legacy specific crt/glow overrides if needed
     if (config.crtScanlines) {
-      document.body.classList.add('crt-enabled');
+      body.classList.add('crt-enabled');
     }
     if (config.photonGlow) {
-      document.body.classList.add('glow-enabled');
+      body.classList.add('glow-enabled');
     }
 
     // Pre-calculate theme color RGB to avoid getComputedStyle in animation loop
     const computeThemeColor = () => {
-      const hex = getComputedStyle(document.body).getPropertyValue('--text-color').trim();
+      const hex = getComputedStyle(root).getPropertyValue('--text-color').trim();
       themeColorRef.current = hexToRgb(hex || '#fca311');
     };
 
@@ -230,5 +235,5 @@ export default function CanvasBackground({ config }: CanvasBackgroundProps) {
     };
   }, [config.starDensity, config.driftSpeed, config.repelRadius, config.repelForce]);
 
-  return <canvas ref={canvasRef} id="bg-canvas" className="fixed top-0 left-0 w-full h-full z-[-1]" />;
+  return <canvas ref={canvasRef} id="bg-canvas" className="fixed top-0 left-0 w-full h-full z-0" />;
 }
