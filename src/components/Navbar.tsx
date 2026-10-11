@@ -1,45 +1,31 @@
-interface NavbarProps {
-  toggleControls: () => void;
-}
+const navItems = [
+  { href: '#about', label: 'About' },
+  { href: '#experience', label: 'Experience' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#contact', label: 'Contact' },
+];
 
-export function Navbar({ toggleControls }: NavbarProps) {
+export function Navbar() {
   return (
-    <nav className="sticky top-0 border-b border-primary-container bg-background w-full z-50">
-      <div className="flex justify-between items-center w-full px-8 py-5 max-w-[1200px] mx-auto">
-        <a href="#" className="font-label-code text-[18px] font-bold text-primary-container hover:text-primary-fixed transition-colors">
-          vedant@portfolio:~$
+    <header className="glass-nav">
+      <div className="flex items-center justify-between w-full max-w-[1200px] mx-auto px-8 py-4 gap-6">
+        <a
+          href="#hero"
+          className="display text-[20px] leading-none text-pure hover:text-cloud transition-colors"
+        >
+          Vedant Parmane
         </a>
-        <div className="flex items-center gap-10">
-          <ul className="flex space-x-10">
-            <li>
-              <a href="#about" className="text-primary-container font-label-code text-body-sm hover:text-primary-fixed transition-colors">
-                whoami
-              </a>
-            </li>
-            <li>
-              <a href="#experience" className="text-primary-container font-label-code text-body-sm hover:text-primary-fixed transition-colors">
-                experience
-              </a>
-            </li>
-            <li>
-              <a href="#projects" className="text-primary-container font-label-code text-body-sm hover:text-primary-fixed transition-colors">
-                projects
-              </a>
-            </li>
-            <li>
-              <a href="#contact" className="text-primary-container font-label-code text-body-sm hover:text-primary-fixed transition-colors">
-                contact
-              </a>
-            </li>
-          </ul>
-          <button
-            onClick={toggleControls}
-            className="border border-primary-container text-primary-container px-3 py-1 rounded font-label-code text-body-sm hover:bg-primary-container hover:text-background transition-colors cursor-pointer"
-          >
-            ⚙ CONTROLS
-          </button>
-        </div>
+        <nav aria-label="Primary" className="hidden lg:flex items-center gap-2">
+          {navItems.map((item) => (
+            <a key={item.href} href={item.href} className="nav-link">
+              {item.label}
+            </a>
+          ))}
+        </nav>
+        <a href="#contact" className="btn btn-primary">
+          Get in touch <span aria-hidden="true">→</span>
+        </a>
       </div>
-    </nav>
+    </header>
   );
 }

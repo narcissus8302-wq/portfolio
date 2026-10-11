@@ -6,14 +6,14 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project, onOpen }: ProjectCardProps) {
-  const { tag, title, description, tech, role, website, pypi, github, preview } = project;
+  const { title, description, tech, role, website, pypi, github, preview } = project;
 
   const link = website
     ? { href: website, label: website.replace(/^https?:\/\//, '') }
     : pypi
-      ? { href: pypi, label: 'pip install repo-ser' }
+      ? { href: pypi, label: 'pip install' }
       : github
-        ? { href: github, label: './clone --git' }
+        ? { href: github, label: 'GitHub' }
         : null;
 
   const problem = project.readme[0]?.body;
@@ -31,67 +31,69 @@ export function ProjectCard({ project, onOpen }: ProjectCardProps) {
           onOpen();
         }
       }}
-      className="relative flex flex-col border border-outline-variant rounded overflow-hidden bg-surface-container hover:border-primary-fixed focus-visible:border-primary-fixed focus-visible:outline-none transition-colors duration-300 group cursor-pointer"
+      className="group relative flex flex-col bg-graphite hover:bg-steel rounded-card overflow-hidden cursor-pointer transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-pure outline-none"
     >
-      <div className="h-32 overflow-hidden bg-terminal-black flex items-center p-4 border-b border-outline-variant/30">
-        <div className="flex flex-col gap-2 w-full">
-          <div className="flex items-center gap-2">
-            <span className="text-green-400 font-label-code text-label-code">$</span>
-            <span className="text-primary-fixed font-label-code text-label-code">cd ./{tag}</span>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {tech.map((t) => (
-              <span
-                key={t}
-                className="text-label-code font-label-code text-primary-container border border-outline-variant/40 px-2 py-0.5 rounded"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
+      <div className="p-8 flex flex-col gap-4 flex-grow">
+        <div className="flex flex-wrap gap-2">
+          {tech.map((t) => (
+            <span
+              key={t}
+              className="font-mono text-[11px] uppercase tracking-[0.02em] text-cloud bg-white/[0.06] border border-white/10 rounded-full px-3 py-1 leading-[1.35]"
+            >
+              {t}
+            </span>
+          ))}
         </div>
-      </div>
-      <div className="p-7 flex flex-col gap-4 flex-grow">
-        <h3 className="font-bold text-pure-white text-xl">{title}</h3>
-        <p className="text-body-lg text-primary-container">{description}</p>
-        <div className="text-body-sm text-outline">
-          <span className="text-secondary-fixed">Role:</span> {role}
+        <h3 className="text-subheading text-pure font-normal">{title}</h3>
+        <p className="text-body text-ash">{description}</p>
+        <div className="text-body-sm flex gap-2">
+          <span className="font-mono text-[11px] uppercase tracking-[0.02em] text-fog leading-[1.67]">
+            Role
+          </span>
+          <span className="text-ash">{role}</span>
         </div>
-        <div className="mt-auto flex items-center justify-between gap-4">
-          <span className="text-label-code font-label-code text-primary-fixed">{'[ ▸ open ]'}</span>
+        <div className="mt-auto pt-2 flex items-center justify-between gap-4">
+          <span className="font-mono text-[12px] uppercase tracking-[0.02em] text-pure">
+            Open <span aria-hidden="true">→</span>
+          </span>
           {link ? (
             <a
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="inline-block text-primary-fixed hover:text-pure-white transition-colors w-fit"
+              className="text-body-sm text-ash hover:text-pure transition-colors w-fit truncate max-w-[60%]"
             >
-              {`[ → ${link.label} ]`}
+              {link.label}
             </a>
           ) : null}
         </div>
       </div>
       <div
         aria-hidden="true"
-        className="absolute inset-0 rounded bg-terminal-black/95 border border-primary-fixed flex flex-col gap-3 p-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-150 group-hover:delay-150 pointer-events-none"
+        className="absolute inset-0 bg-abyss flex flex-col gap-3 p-8 overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-200 group-hover:delay-100 pointer-events-none"
       >
-        <h3 className="font-bold text-pure-white text-xl">{title}</h3>
+        <h3 className="text-subheading text-pure font-normal">{title}</h3>
         {problem ? (
-          <p className="text-body-md text-primary-container">
-            <span className="text-secondary-fixed">Problem</span> — {problem}
+          <p className="text-body-sm text-ash">
+            <span className="font-mono text-[11px] uppercase tracking-[0.02em] text-fog block leading-[1.67]">
+              Problem
+            </span>
+            {problem}
           </p>
         ) : null}
-        <div className="flex flex-col gap-1.5 mt-1">
+        <div className="flex flex-col gap-1.5 mt-auto">
           {preview.map((row) => (
-            <div key={row.label} className="flex text-body-sm">
-              <span className="text-outline min-w-[6.5rem]">{row.label}</span>
-              <span className="text-primary-container">{row.value}</span>
+            <div key={row.label} className="flex gap-4 text-body-sm">
+              <span className="font-mono text-[11px] uppercase tracking-[0.02em] text-fog min-w-[6.5rem] leading-[1.67]">
+                {row.label}
+              </span>
+              <span className="text-cloud">{row.value}</span>
             </div>
           ))}
         </div>
-        <span className="mt-auto text-label-code font-label-code text-primary-fixed">
-          {'[ OPEN PROJECT ]'}
+        <span className="font-mono text-[12px] uppercase tracking-[0.02em] text-pure mt-3">
+          Open project <span aria-hidden="true">→</span>
         </span>
       </div>
     </div>

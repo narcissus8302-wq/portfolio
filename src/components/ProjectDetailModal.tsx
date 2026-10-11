@@ -71,75 +71,53 @@ export function ProjectDetailModal({ project, onClose }: ProjectDetailModalProps
         aria-modal="true"
         aria-labelledby={titleId}
         tabIndex={-1}
-        className="terminal-window modal-enter w-full max-w-2xl max-h-[85vh] flex flex-col outline-none"
+        className="modal-enter w-full max-w-2xl max-h-[85vh] bg-graphite rounded-card overflow-hidden flex flex-col outline-none"
       >
-        <div className="terminal-titlebar">
+        <div className="flex items-center justify-between gap-4 px-6 md:px-8 py-5 border-b border-white/10">
+          <span className="font-mono text-[11px] uppercase tracking-[0.182em] text-fog truncate">
+            Projects / {project.tag}
+          </span>
           <button
             type="button"
             aria-label="Close"
             onClick={onClose}
-            className="terminal-dot-red cursor-pointer hover:brightness-125 transition-[filter]"
-          />
-          <span className="terminal-dot-yellow" />
-          <span className="terminal-dot-green" />
-          <span className="terminal-title-text">~/projects/{project.tag}</span>
-          <button
-            type="button"
-            onClick={onClose}
-            className="text-label-code font-label-code text-primary-container hover:text-pure-white transition-colors cursor-pointer"
+            className="text-pure hover:text-ash transition-colors cursor-pointer text-xl leading-none shrink-0"
           >
-            {'[ x ]'}
+            ✕
           </button>
         </div>
-        <div className="terminal-body terminal-modal-body overflow-y-auto flex flex-col gap-6">
-          <div>
-            <span>
-              <span className="text-secondary-container">vedant</span>
-              <span className="text-outline">@</span>
-              <span className="text-link-blue">parmane</span>
-              <span className="text-secondary-fixed-dim">: ~/projects/{project.tag}</span>
-            </span>{' '}
-            <span className="text-green-400">$</span> <span className="text-pure-white">cat README.md</span>
-          </div>
-          <div>
-            <h3 id={titleId} className="font-bold text-pure-white text-2xl">
-              {project.title.toUpperCase()}
+        <div className="modal-scroll overflow-y-auto px-6 md:px-8 py-8 flex flex-col gap-8">
+          <div className="flex flex-col gap-3">
+            <h3 id={titleId} className="display text-heading-lg text-pure">
+              {project.title}
             </h3>
-            <div className="text-outline text-body-sm select-none">
-              {'──────────────────────────────────────'}
-            </div>
+            <p className="text-body text-ash">{project.description}</p>
           </div>
           <div className="flex flex-col gap-6">
             {project.readme.map((section) => (
               <section key={section.heading} className="flex flex-col gap-2">
-                <h4 className="font-label-code text-label-code text-primary-fixed">
+                <h4 className="font-mono text-[12px] font-medium uppercase tracking-[0.02em] text-cloud">
                   {section.heading}
                 </h4>
-                <p className="text-body-md text-primary-container whitespace-pre-wrap">
-                  {section.body}
-                </p>
+                <p className="text-body text-ash whitespace-pre-wrap">{section.body}</p>
               </section>
             ))}
           </div>
           {links.length > 0 ? (
-            <div className="flex flex-wrap gap-6">
+            <div className="flex flex-wrap gap-3">
               {links.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block text-primary-fixed hover:text-pure-white transition-colors w-fit"
+                  className="btn btn-ghost"
                 >
-                  {`[ ${link.label} ]`}
+                  {link.label} <span aria-hidden="true">→</span>
                 </a>
               ))}
             </div>
           ) : null}
-          <div>
-            <span className="text-green-400">$</span>{' '}
-            <span className="terminal-blink text-primary-fixed">█</span>
-          </div>
         </div>
       </div>
     </div>,
