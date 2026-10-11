@@ -1,5 +1,11 @@
 export type ProjectKind = 'research' | 'live' | 'engineering';
 
+export const kindLabels: Record<ProjectKind, string> = {
+  research: 'Research',
+  live: 'Live product',
+  engineering: 'Engineering',
+};
+
 export interface PreviewRow {
   label: string;
   value: string;
@@ -20,7 +26,9 @@ export interface Project {
   github?: string;
   pypi?: string;
   website?: string;
+  featured?: boolean;
   preview: PreviewRow[];
+  highlights?: PreviewRow[];
   readme: ReadmeSection[];
 }
 
@@ -39,12 +47,22 @@ export const categories: ProjectCategory[] = [
         description:
           'Physics-aware ML for quark/gluon jet discrimination — GSoC 2026 ML4SCI HEPSIM evaluation task.',
         tech: ['Python', 'scikit-learn', 'Jupyter', 'Physics-aware Features'],
-        role: 'Research Project',
+        role: 'GSoC 2026',
         kind: 'research',
         github: 'https://github.com/vnparmane/cern_jet_physic',
+        featured: true,
         preview: [
           { label: 'Dataset', value: 'Pythia8 simulated jets' },
           { label: 'Task', value: 'Binary classification' },
+          { label: 'Result', value: 'AUC ≈ 0.815' },
+        ],
+        highlights: [
+          { label: 'Problem', value: 'Quark vs gluon jet discrimination — ML4SCI HEPSIM task' },
+          { label: 'Method', value: 'Physics-aware features + gradient boosting' },
+          {
+            label: 'Evaluation',
+            value: 'Lab-frame vs rest-frame comparison, stratified splits',
+          },
           { label: 'Result', value: 'AUC ≈ 0.815' },
         ],
         readme: [
