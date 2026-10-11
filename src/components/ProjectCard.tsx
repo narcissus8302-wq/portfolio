@@ -1,4 +1,4 @@
-import type { Project } from '../data/projects';
+import { kindLabels, type Project } from '../data/projects';
 
 interface ProjectCardProps {
   project: Project;
@@ -6,17 +6,20 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project, onOpen }: ProjectCardProps) {
-  const { title, description, tech, role, website, pypi, github, preview } = project;
+  const { title, description, tech, kind, website, pypi, github, featured } = project;
 
-  const link = website
-    ? { href: website, label: website.replace(/^https?:\/\//, '') }
+  const action = website
+    ? { href: website, label: 'Visit site' }
     : pypi
-      ? { href: pypi, label: 'pip install' }
+      ? { href: pypi, label: 'View on PyPI' }
       : github
-        ? { href: github, label: 'GitHub' }
+        ? { href: github, label: 'View repository' }
         : null;
 
-  const problem = project.readme[0]?.body;
+  const rows =
+    featured && project.highlights
+      ? project.highlights
+      : project.preview.filter((row) => row.label !== 'Stack');
 
   return (
     <div
@@ -31,70 +34,73 @@ export function ProjectCard({ project, onOpen }: ProjectCardProps) {
           onOpen();
         }
       }}
-      className="group relative flex flex-col bg-graphite hover:bg-steel rounded-card overflow-hidden cursor-pointer transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-pure outline-none"
+      className={`group flex flex-col gap-5 bg-graphite border border-line hover:bg-steel hover:border-stone rounded-card p-6 cursor-pointer transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-bone outline-none ${featured ? 'md:col-span-2' : ''}`}
     >
-      <div className="p-8 flex flex-col gap-4 flex-grow">
-        <div className="flex flex-wrap gap-2">
-          {tech.map((t) => (
-            <span
-              key={t}
-              className="font-mono text-[11px] uppercase tracking-[0.02em] text-cloud bg-white/[0.06] border border-white/10 rounded-full px-3 py-1 leading-[1.35]"
-            >
-              {t}
-            </span>
-          ))}
-        </div>
-        <h3 className="text-subheading text-pure font-normal">{title}</h3>
-        <p className="text-body text-ash">{description}</p>
-        <div className="text-body-sm flex gap-2">
-          <span className="font-mono text-[11px] uppercase tracking-[0.02em] text-fog leading-[1.67]">
-            Role
+      <div className="flex items-center justify-between gap-4">
+        <span className="label text-sage">
+          {featured ? `${kindLabels[kind]} · Featured` : kindLabels[kind]}
+        </span>
+        {website ? (
+          <span className="label inline-flex items-center gap-2 text-sage">
+            <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-sage" />
+            Live
           </span>
-          <span className="text-ash">{role}</span>
-        </div>
-        <div className="mt-auto pt-2 flex items-center justify-between gap-4">
-          <span className="font-mono text-[12px] uppercase tracking-[0.02em] text-pure">
-            Open <span aria-hidden="true">→</span>
-          </span>
-          {link ? (
-            <a
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="text-body-sm text-ash hover:text-pure transition-colors w-fit truncate max-w-[60%]"
-            >
-              {link.label}
-            </a>
+        ) : null}
+      </div>
+
+      <div className={featured ? 'grid md:grid-cols-2 gap-6' : 'flex flex-col gap-3'}>
+        <div className="flex flex-col gap-3">
+          <h3
+            className={`display leading-snug text-bone ${featured ? 'text-[30px]' : 'text-[22px]'}`}
+          >
+            {title}
+          </h3>
+          <p className={featured ? 'text-subheading text-mist font-light' : 'text-body text-mist'}>
+            {description}
+          </p>
+          {!featured ? (
+            <dl className="flex flex-col gap-2.5 border-t border-line pt-4 mt-1">
+              {rows.map((row) => (
+                <div key={row.label} className="flex gap-4 text-body-sm">
+                  <dt className="label shrink-0 min-w-[5.5rem]">{row.label}</dt>
+                  <dd className="text-bone">{row.value}</dd>
+                </div>
+              ))}
+            </dl>
           ) : null}
         </div>
-      </div>
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-abyss flex flex-col gap-3 p-8 overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-200 group-hover:delay-100 pointer-events-none"
-      >
-        <h3 className="text-subheading text-pure font-normal">{title}</h3>
-        {problem ? (
-          <p className="text-body-sm text-ash">
-            <span className="font-mono text-[11px] uppercase tracking-[0.02em] text-fog block leading-[1.67]">
-              Problem
-            </span>
-            {problem}
-          </p>
+        {featured ? (
+          <dl className="flex flex-col gap-3 border-t border-line pt-4 md:mt-1 md:border-t-0 md:border-l md:border-line md:pt-0 md:pl-6">
+            {rows.map((row) => (
+              <div key={row.label} className="flex flex-col gap-0.5">
+                <dt className="label">{row.label}</dt>
+                <dd className="text-body-sm text-bone">{row.value}</dd>
+              </div>
+            ))}
+          </dl>
         ) : null}
-        <div className="flex flex-col gap-1.5 mt-auto">
-          {preview.map((row) => (
-            <div key={row.label} className="flex gap-4 text-body-sm">
-              <span className="font-mono text-[11px] uppercase tracking-[0.02em] text-fog min-w-[6.5rem] leading-[1.67]">
-                {row.label}
-              </span>
-              <span className="text-cloud">{row.value}</span>
-            </div>
-          ))}
-        </div>
-        <span className="font-mono text-[12px] uppercase tracking-[0.02em] text-pure mt-3">
-          Open project <span aria-hidden="true">→</span>
+      </div>
+
+      <div className="mt-auto flex items-end justify-between gap-4 border-t border-line pt-4">
+        <span className="label">
+          {tech.slice(0, 3).join(' · ')}
+          {tech.length > 3 ? ` +${tech.length - 3}` : ''}
         </span>
+        {action ? (
+          <a
+            href={action.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="label text-sage hover:text-bone transition-colors shrink-0"
+          >
+            {action.label} <span aria-hidden="true">↗</span>
+          </a>
+        ) : (
+          <span className="label text-sage shrink-0">
+            Open <span aria-hidden="true">→</span>
+          </span>
+        )}
       </div>
     </div>
   );
