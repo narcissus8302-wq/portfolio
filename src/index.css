@@ -43,48 +43,6 @@
   --radius-card: 12px;
   --radius-stat: 12px;
   --radius-feature: 14px;
-  /* ——— Palette A · Technical editorial ——— */
-  --color-obsidian: #101110; /* main background */
-  --color-abyss: #161716; /* alternate section shade */
-  --color-graphite: #1c1e1c; /* cards & panels */
-  --color-steel: #262826; /* card hover surface */
-  --color-line: #303330; /* dividers & borders */
-  --color-bone: #f0eee7; /* headings & primary text */
-  --color-mist: #c2c5bd; /* body copy */
-  --color-stone: #92968f; /* secondary text & labels */
-  --color-sage: #a6b5a0; /* accent */
-
-  /* ——— Typography · two voices: editorial serif + functional sans ——— */
-  --font-display: "DM Serif Display", ui-serif, Georgia, serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-
-  /* Type scale · desktop targets, clamped for smaller viewports */
-  --text-body-sm: 15px;
-  --text-body-sm--line-height: 1.6;
-  --text-body: 16px;
-  --text-body--line-height: 1.6;
-  --text-subheading: 18px;
-  --text-subheading--line-height: 1.55;
-  --text-heading-lg: clamp(32px, 3vw, 40px);
-  --text-heading-lg--line-height: 1.05;
-  --text-display-sm: clamp(56px, 5.5vw, 80px);
-  --text-display-sm--line-height: 0.95;
-
-  /* Weights */
-  --font-weight-light: 300;
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
-
-  /* ——— Spacing · 4px base ——— */
-  --spacing: 4px;
-
-  /* ——— Radius · 10–14px band ——— */
-  --radius-input: 10px;
-  --radius-button: 10px;
-  --radius-nav: 10px;
-  --radius-card: 12px;
-  --radius-stat: 12px;
-  --radius-feature: 14px;
 }
 
 @layer base {
@@ -198,127 +156,7 @@
     background-color: #b9c6b3;
     border-color: #b9c6b3;
   }
-@layer base {
-  html {
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
 
-  html::-webkit-scrollbar {
-    display: none;
-  }
-
-  body {
-    background-color: var(--color-obsidian);
-    color: var(--color-mist);
-    font-family: var(--font-sans);
-    font-weight: 400;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  section[id] {
-    scroll-margin-top: 96px;
-  }
-
-  ::selection {
-    background-color: var(--color-sage);
-    color: var(--color-obsidian);
-  }
-}
-
-@layer components {
-  /* Display voice: editorial serif, never bolded */
-  .display {
-    font-family: var(--font-display);
-    font-weight: 400;
-    letter-spacing: -0.01em;
-    text-wrap: balance;
-  }
-
-  /* Tracked uppercase label — carries metadata now that the mono voice is retired */
-  .label {
-    font-family: var(--font-sans);
-    font-size: 11px;
-    font-weight: 500;
-    line-height: 1.5;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--color-stone);
-  }
-
-  /* Section eyebrow — accent, no pill chrome */
-  .eyebrow {
-    font-family: var(--font-sans);
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 1.5;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--color-sage);
-  }
-
-  /* Hero status chip — the one legitimate pill */
-  .status-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 9px 18px;
-    border-radius: 9999px;
-    border: 1px solid var(--color-line);
-    background-color: rgba(28, 30, 28, 0.55);
-    backdrop-filter: blur(8px);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-mist);
-  }
-  .status-chip::before {
-    content: "";
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background-color: var(--color-sage);
-  }
-
-  /* Buttons · one filled sage primary, one bordered secondary */
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 13px 22px;
-    border-radius: var(--radius-button);
-    font-family: var(--font-sans);
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 1;
-    white-space: nowrap;
-    cursor: pointer;
-    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-  }
-
-  .btn-primary {
-    background-color: var(--color-sage);
-    color: var(--color-obsidian);
-    border: 1px solid var(--color-sage);
-  }
-  .btn-primary:hover {
-    background-color: #b9c6b3;
-    border-color: #b9c6b3;
-  }
-
-  .btn-ghost {
-    background-color: transparent;
-    color: var(--color-bone);
-    border: 1px solid var(--color-line);
-  }
-  .btn-ghost:hover {
-    border-color: var(--color-stone);
-    background-color: rgba(240, 238, 231, 0.05);
-  }
   .btn-ghost {
     background-color: transparent;
     color: var(--color-bone);
@@ -355,5 +193,74 @@
   }
   .nav-link:hover {
     color: var(--color-bone);
+  }
+}
+
+/* ——— Motion · restrained: 0.2s states, 1.2s atmospheric reveals ——— */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  animation: reveal 1.2s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards;
+}
+.reveal-2 {
+  animation-delay: 0.15s;
+}
+.reveal-3 {
+  animation-delay: 0.3s;
+}
+.reveal-4 {
+  animation-delay: 0.45s;
+}
+
+@keyframes modal-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.98) translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+.modal-enter {
+  animation: modal-enter 0.2s ease-out;
+}
+
+.modal-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-steel) transparent;
+}
+.modal-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+.modal-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.modal-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-steel);
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .modal-enter {
+    animation: none;
   }
 }
