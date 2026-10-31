@@ -84,6 +84,12 @@
     text-wrap: balance;
   }
 
+  .hero-title {
+    font-size: clamp(3.5rem, 8vw, 6rem);
+    line-height: 0.88;
+    letter-spacing: -0.055em;
+  }
+
   /* Tracked uppercase label — carries metadata now that the mono voice is retired */
   .label {
     font-family: var(--font-sans);
@@ -193,6 +199,83 @@
   }
   .nav-link:hover {
     color: var(--color-bone);
+  }
+
+  .hero {
+    --hero-image-position: 30% 30%;
+  }
+
+  .hero-content {
+    left: 0;
+  }
+
+  @media (min-width: 900px) {
+    .hero-content {
+      left: clamp(10rem, 16vw, 11.5rem);
+    }
+  }
+
+  .hero-photo {
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-obsidian);
+    background-image: url("./assets/bg1.jpg");
+    background-position: var(--hero-image-position);
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: saturate(0.85) brightness(0.88);
+  }
+
+  .hero-photo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(16, 17, 16, 0.3);
+  }
+
+  .hero-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to bottom, rgb(16, 17, 16), rgba(16, 17, 16, 0)) top / 100% 80px
+        no-repeat,
+      linear-gradient(to top, rgb(16, 17, 16), rgba(16, 17, 16, 0)) bottom / 100% 208px
+        no-repeat;
+  }
+
+  .hero-background {
+    z-index: 0;
+  }
+
+  .hero-subject {
+    display: none;
+    z-index: 20;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    -webkit-mask-image: url("./assets/hero-subject-mask.png");
+    mask-image: url("./assets/hero-subject-mask.png");
+    -webkit-mask-position: var(--hero-image-position);
+    mask-position: var(--hero-image-position);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: cover;
+    mask-size: cover;
+    transition: opacity 0.35s ease;
+  }
+
+  @supports ((-webkit-mask-image: url("x")) or (mask-image: url("x"))) {
+    @media (min-width: 900px) {
+      .hero-subject {
+        display: block;
+      }
+
+      .hero-subject-ready {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
   }
 }
 
