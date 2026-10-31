@@ -6,7 +6,6 @@ import { ProjectsSection } from './components/ProjectsSection';
 import { PrinciplesSection } from './components/PrinciplesSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
-import { MusicIsland } from './components/MusicIsland';
 
 function App() {
   return (
@@ -21,7 +20,6 @@ function App() {
         <ContactSection />
       </main>
       <Footer />
-      <MusicIsland />
     </div>
   );
 }
