@@ -1,5 +1,4 @@
 import bgImage from '../assets/bg1.jpg';
-import bgImage from '../assets/bg1.jpg';
 
 export function HeroSection() {
   return (
